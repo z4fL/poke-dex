@@ -13,17 +13,37 @@ public class Pokemon {
   private String nama;
   private float tinggi;
   private float berat;
-  private ArrayList<Integer> tipe;
-  private ArrayList<Integer> kemampuan;
+  private ArrayList<String> tipe_id;
+  private ArrayList<String> kemampuan_id;
+  private ArrayList<String> tipe;
+  private ArrayList<String> kemampuan;
+  private ArrayList<String> tipe_pokemon_id;
+  private ArrayList<String> kemampuan_pokemon_id;
 
-  public Pokemon(int id, int pokedex_id, String nama, float tinggi, float berat, ArrayList<Integer> tipe, ArrayList<Integer> kemampuan) {
+  public Pokemon() {
+  }
+
+  // tambah
+  public Pokemon(int id, int pokedex_id, String nama, float tinggi, float berat, ArrayList<String> tipe_id, ArrayList<String> kemampuan_id) {
     this.id = id;
     this.pokedex_id = pokedex_id;
     this.nama = nama;
     this.tinggi = tinggi;
     this.berat = berat;
-    this.tipe = tipe;
-    this.kemampuan = kemampuan;
+    this.tipe_id = tipe_id;
+    this.kemampuan_id = kemampuan_id;
+  }
+
+  public Pokemon(int id, int pokedex_id, String nama, float tinggi, float berat, ArrayList<String> tipe_id, ArrayList<String> kemampuan_id, ArrayList<String> tipe_pokemon_id, ArrayList<String> kemampuan_pokemon_id) {
+    this.id = id;
+    this.pokedex_id = pokedex_id;
+    this.nama = nama;
+    this.tinggi = tinggi;
+    this.berat = berat;
+    this.tipe_id = tipe_id;
+    this.kemampuan_id = kemampuan_id;
+    this.tipe_pokemon_id = tipe_pokemon_id;
+    this.kemampuan_pokemon_id = kemampuan_pokemon_id;
   }
 
   public int getId() {
@@ -66,21 +86,54 @@ public class Pokemon {
     this.berat = berat;
   }
 
-  public ArrayList<Integer> getTipe() {
+  public ArrayList<String> getTipe_id() {
+    return tipe_id;
+  }
+
+  public void setTipe_id(ArrayList<String> tipe_id) {
+    this.tipe_id = tipe_id;
+  }
+
+  public ArrayList<String> getKemampuan_id() {
+    return kemampuan_id;
+  }
+
+  public void setKemampuan_id(ArrayList<String> kemampuan_id) {
+    this.kemampuan_id = kemampuan_id;
+  }
+
+  public ArrayList<String> getTipe() {
     return tipe;
   }
 
-  public void setTipe(ArrayList<Integer> tipe) {
+  public void setTipe(ArrayList<String> tipe) {
     this.tipe = tipe;
   }
 
-  public ArrayList<Integer> getKemampuan() {
+  public ArrayList<String> getKemampuan() {
     return kemampuan;
   }
 
-  public void setKemampuan(ArrayList<Integer> kemampuan) {
+  public void setKemampuan(ArrayList<String> kemampuan) {
     this.kemampuan = kemampuan;
   }
+
+  public ArrayList<String> getTipe_pokemon_id() {
+    return tipe_pokemon_id;
+  }
+
+  public void setTipe_pokemon_id(ArrayList<String> tipe_pokemon_id) {
+    this.tipe_pokemon_id = tipe_pokemon_id;
+  }
+
+  public ArrayList<String> getKemampuan_pokemon_id() {
+    return kemampuan_pokemon_id;
+  }
+
+  public void setKemampuan_pokemon_id(ArrayList<String> kemampuan_pokemon_id) {
+    this.kemampuan_pokemon_id = kemampuan_pokemon_id;
+  }
+
 
   @Override
   public String toString() {
@@ -91,7 +144,11 @@ public class Pokemon {
             + ", tinggi=" + tinggi
             + ", berat=" + berat
             + ", tipe=" + tipe
+            + ", tipe_id=" + tipe_id
+            + ", tipe_pokemon_id=" + tipe_pokemon_id
             + ", kemampuan=" + kemampuan
+            + ", kemampuan_id=" + kemampuan_id
+            + ", kemampuan_pokemon_id=" + kemampuan_pokemon_id
             + '}';
   }
 

@@ -1,10 +1,10 @@
-package controller;
+package core;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import config.ConnectionDB;
+import connection.ConnectionDB;
 
 /**
  *
@@ -18,9 +18,9 @@ public class QueryExecutor {
   Statement stmt;
 
   // SELECT
-  public ResultSet querySelect(String query) throws SQLException {
+  public ResultSet querySelect(String query) {
     try {
-      conn = connDB.connectDB();
+      conn = connDB.getConnection();
       stmt = conn.createStatement();
       res = stmt.executeQuery(query);
     } catch (SQLException ex) {
@@ -34,7 +34,7 @@ public class QueryExecutor {
   public int queryIUD(String query) throws SQLException {
     int baris = 0; // baris yang terpengaruh
     try {
-      conn = connDB.connectDB();
+      conn = connDB.getConnection();
       stmt = conn.createStatement();
       baris = stmt.executeUpdate(query);
 

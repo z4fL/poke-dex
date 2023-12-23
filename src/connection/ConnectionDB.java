@@ -1,4 +1,4 @@
-package config;
+package connection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,7 +10,7 @@ import java.sql.SQLException;
  */
 public class ConnectionDB {
 
-  public Connection connectDB() {
+  public Connection getConnection() {
 
     Connection conn = null;
 
