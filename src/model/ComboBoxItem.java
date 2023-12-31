@@ -1,4 +1,4 @@
-package utilities;
+package model;
 
 import java.util.Objects;
 
@@ -56,7 +56,6 @@ public class ComboBoxItem {
     }
 
   }
-
 
   @Override
   public int hashCode() {

@@ -10,11 +10,13 @@ import javax.swing.JInternalFrame;
 public class FramePokedex extends javax.swing.JFrame {
 
   /**
-   * Creates new form FramePokemon
+   * Creates new form FramePokedex
    */
   public FramePokedex() {
     initComponents();
     setLocationRelativeTo(null);
+    FramePokemon frPokemon = new FramePokemon();
+    addFrame(frPokemon);
   }
 
   /**
@@ -27,97 +29,55 @@ public class FramePokedex extends javax.swing.JFrame {
   private void initComponents() {
 
     desktopPane = new javax.swing.JDesktopPane();
-    menuBar = new javax.swing.JMenuBar();
-    menuMain = new javax.swing.JMenu();
-    miLogin = new javax.swing.JMenuItem();
-    miLogout = new javax.swing.JMenuItem();
-    miExit = new javax.swing.JMenuItem();
-    menuFrame = new javax.swing.JMenu();
-    miPokemon = new javax.swing.JMenuItem();
-    miKategori = new javax.swing.JMenuItem();
-    miTipe = new javax.swing.JMenuItem();
-    miKemampuan = new javax.swing.JMenuItem();
+    jMenuBar1 = new javax.swing.JMenuBar();
+    jMenu1 = new javax.swing.JMenu();
+    menuLogin = new javax.swing.JMenuItem();
+    menuLogout = new javax.swing.JMenuItem();
+    menuExit = new javax.swing.JMenuItem();
+    jMenu2 = new javax.swing.JMenu();
+    menuPokemon = new javax.swing.JMenuItem();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-    setTitle("Pokedex");
-    setMinimumSize(new java.awt.Dimension(950, 540));
+    setMinimumSize(new java.awt.Dimension(960, 540));
+    setPreferredSize(new java.awt.Dimension(960, 540));
 
     javax.swing.GroupLayout desktopPaneLayout = new javax.swing.GroupLayout(desktopPane);
     desktopPane.setLayout(desktopPaneLayout);
     desktopPaneLayout.setHorizontalGroup(
       desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGap(0, 950, Short.MAX_VALUE)
+      .addGap(0, 960, Short.MAX_VALUE)
     );
     desktopPaneLayout.setVerticalGroup(
       desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGap(0, 517, Short.MAX_VALUE)
     );
 
-    menuMain.setText("Menu");
+    jMenu1.setText("Menu");
 
-    miLogin.setText("Login");
-    miLogin.addActionListener(new java.awt.event.ActionListener() {
+    menuLogin.setText("Login");
+    jMenu1.add(menuLogin);
+
+    menuLogout.setText("Logout");
+    jMenu1.add(menuLogout);
+
+    menuExit.setText("Exit");
+    jMenu1.add(menuExit);
+
+    jMenuBar1.add(jMenu1);
+
+    jMenu2.setText("Pokedex");
+
+    menuPokemon.setText("Pokemon");
+    menuPokemon.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
-        miLoginActionPerformed(evt);
+        menuPokemonActionPerformed(evt);
       }
     });
-    menuMain.add(miLogin);
+    jMenu2.add(menuPokemon);
 
-    miLogout.setText("Logout");
-    miLogout.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        miLogoutActionPerformed(evt);
-      }
-    });
-    menuMain.add(miLogout);
+    jMenuBar1.add(jMenu2);
 
-    miExit.setText("Exit");
-    miExit.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        miExitActionPerformed(evt);
-      }
-    });
-    menuMain.add(miExit);
-
-    menuBar.add(menuMain);
-
-    menuFrame.setText("Pokedex");
-
-    miPokemon.setText("Pokemon");
-    miPokemon.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        miPokemonActionPerformed(evt);
-      }
-    });
-    menuFrame.add(miPokemon);
-
-    miKategori.setText("Kategori");
-    miKategori.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        miKategoriActionPerformed(evt);
-      }
-    });
-    menuFrame.add(miKategori);
-
-    miTipe.setText("Tipe");
-    miTipe.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        miTipeActionPerformed(evt);
-      }
-    });
-    menuFrame.add(miTipe);
-
-    miKemampuan.setText("Kemampuan");
-    miKemampuan.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        miKemampuanActionPerformed(evt);
-      }
-    });
-    menuFrame.add(miKemampuan);
-
-    menuBar.add(menuFrame);
-
-    setJMenuBar(menuBar);
+    setJMenuBar(jMenuBar1);
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
@@ -133,34 +93,10 @@ public class FramePokedex extends javax.swing.JFrame {
     pack();
   }// </editor-fold>//GEN-END:initComponents
 
-  private void miLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miLoginActionPerformed
-    // TODO add your handling code here:
-  }//GEN-LAST:event_miLoginActionPerformed
-
-  private void miLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miLogoutActionPerformed
-    // TODO add your handling code here:
-  }//GEN-LAST:event_miLogoutActionPerformed
-
-  private void miExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miExitActionPerformed
-    // TODO add your handling code here:
-  }//GEN-LAST:event_miExitActionPerformed
-
-  private void miPokemonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miPokemonActionPerformed
+  private void menuPokemonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuPokemonActionPerformed
     FramePokemon frPokemon = new FramePokemon();
     addFrame(frPokemon);
-  }//GEN-LAST:event_miPokemonActionPerformed
-
-  private void miKategoriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miKategoriActionPerformed
-    // TODO add your handling code here:
-  }//GEN-LAST:event_miKategoriActionPerformed
-
-  private void miTipeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miTipeActionPerformed
-    // TODO add your handling code here:
-  }//GEN-LAST:event_miTipeActionPerformed
-
-  private void miKemampuanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miKemampuanActionPerformed
-    // TODO add your handling code here:
-  }//GEN-LAST:event_miKemampuanActionPerformed
+  }//GEN-LAST:event_menuPokemonActionPerformed
 
   /**
    * @param args the command line arguments
@@ -188,7 +124,6 @@ public class FramePokedex extends javax.swing.JFrame {
       java.util.logging.Logger.getLogger(FramePokedex.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
     }
     //</editor-fold>
-    //</editor-fold>
 
     /* Create and display the form */
     java.awt.EventQueue.invokeLater(new Runnable() {
@@ -200,16 +135,13 @@ public class FramePokedex extends javax.swing.JFrame {
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JDesktopPane desktopPane;
-  private javax.swing.JMenuBar menuBar;
-  private javax.swing.JMenu menuFrame;
-  private javax.swing.JMenu menuMain;
-  private javax.swing.JMenuItem miExit;
-  private javax.swing.JMenuItem miKategori;
-  private javax.swing.JMenuItem miKemampuan;
-  private javax.swing.JMenuItem miLogin;
-  private javax.swing.JMenuItem miLogout;
-  private javax.swing.JMenuItem miPokemon;
-  private javax.swing.JMenuItem miTipe;
+  private javax.swing.JMenu jMenu1;
+  private javax.swing.JMenu jMenu2;
+  private javax.swing.JMenuBar jMenuBar1;
+  private javax.swing.JMenuItem menuExit;
+  private javax.swing.JMenuItem menuLogin;
+  private javax.swing.JMenuItem menuLogout;
+  private javax.swing.JMenuItem menuPokemon;
   // End of variables declaration//GEN-END:variables
 
   private void addFrame(JInternalFrame internalFrame) {

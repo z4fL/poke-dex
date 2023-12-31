@@ -1,6 +1,6 @@
 package model;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -9,42 +9,56 @@ import java.util.ArrayList;
 public class Pokemon {
 
   private int id;
-  private int pokedex_id;
+  private int pokedexId;
+  private List<String> tipeNama;
+  private List<Integer> tipeId;
+  private List<Integer> tipePokemonId;
   private String nama;
   private float tinggi;
   private float berat;
-  private ArrayList<String> tipe_id;
-  private ArrayList<String> kemampuan_id;
-  private ArrayList<String> tipe;
-  private ArrayList<String> kemampuan;
-  private ArrayList<String> tipe_pokemon_id;
-  private ArrayList<String> kemampuan_pokemon_id;
+  private List<String> kemampuanNama;
+  private List<Integer> kemampuanId;
+  private List<Integer> kemampuanPokemonId;
 
   public Pokemon() {
   }
 
-  // tambah
-  public Pokemon(int id, int pokedex_id, String nama, float tinggi, float berat, ArrayList<String> tipe_id, ArrayList<String> kemampuan_id) {
+  public Pokemon(int id, int pokedexId, List<String> tipeNama, List<Integer> tipeId, List<Integer> tipePokemonId, String nama, float tinggi, float berat, List<String> kemampuanNama, List<Integer> kemampuanId, List<Integer> kemampuanPokemonId) {
     this.id = id;
-    this.pokedex_id = pokedex_id;
+    this.pokedexId = pokedexId;
+    this.tipeNama = tipeNama;
+    this.tipeId = tipeId;
+    this.tipePokemonId = tipePokemonId;
     this.nama = nama;
     this.tinggi = tinggi;
     this.berat = berat;
-    this.tipe_id = tipe_id;
-    this.kemampuan_id = kemampuan_id;
+    this.kemampuanNama = kemampuanNama;
+    this.kemampuanId = kemampuanId;
+    this.kemampuanPokemonId = kemampuanPokemonId;
   }
 
-  public Pokemon(int id, int pokedex_id, String nama, float tinggi, float berat, ArrayList<String> tipe_id, ArrayList<String> kemampuan_id, ArrayList<String> tipe_pokemon_id, ArrayList<String> kemampuan_pokemon_id) {
+  public Pokemon(int id, int pokedexId, List<Integer> tipeId, String nama, float tinggi, float berat, List<Integer> kemampuanId) {
     this.id = id;
-    this.pokedex_id = pokedex_id;
+    this.pokedexId = pokedexId;
+    this.tipeId = tipeId;
     this.nama = nama;
     this.tinggi = tinggi;
     this.berat = berat;
-    this.tipe_id = tipe_id;
-    this.kemampuan_id = kemampuan_id;
-    this.tipe_pokemon_id = tipe_pokemon_id;
-    this.kemampuan_pokemon_id = kemampuan_pokemon_id;
+    this.kemampuanId = kemampuanId;
   }
+
+  public Pokemon(int id, int pokedexId, List<Integer> tipeId, List<Integer> tipePokemonId, String nama, float tinggi, float berat, List<Integer> kemampuanId, List<Integer> kemampuanPokemonId) {
+    this.id = id;
+    this.pokedexId = pokedexId;
+    this.tipeId = tipeId;
+    this.tipePokemonId = tipePokemonId;
+    this.nama = nama;
+    this.tinggi = tinggi;
+    this.berat = berat;
+    this.kemampuanId = kemampuanId;
+    this.kemampuanPokemonId = kemampuanPokemonId;
+  }
+  
 
   public int getId() {
     return id;
@@ -54,12 +68,36 @@ public class Pokemon {
     this.id = id;
   }
 
-  public int getPokedex_id() {
-    return pokedex_id;
+  public int getPokedexId() {
+    return pokedexId;
   }
 
-  public void setPokedex_id(int pokedex_id) {
-    this.pokedex_id = pokedex_id;
+  public void setPokedexId(int pokedexId) {
+    this.pokedexId = pokedexId;
+  }
+
+  public List<String> getTipeNama() {
+    return tipeNama;
+  }
+
+  public void setTipeNama(List<String> tipeNama) {
+    this.tipeNama = tipeNama;
+  }
+
+  public List<Integer> getTipeId() {
+    return tipeId;
+  }
+
+  public void setTipeId(List<Integer> tipeId) {
+    this.tipeId = tipeId;
+  }
+
+  public List<Integer> getTipePokemonId() {
+    return tipePokemonId;
+  }
+
+  public void setTipePokemonId(List<Integer> tipePokemonId) {
+    this.tipePokemonId = tipePokemonId;
   }
 
   public String getNama() {
@@ -86,70 +124,33 @@ public class Pokemon {
     this.berat = berat;
   }
 
-  public ArrayList<String> getTipe_id() {
-    return tipe_id;
+  public List<String> getKemampuanNama() {
+    return kemampuanNama;
   }
 
-  public void setTipe_id(ArrayList<String> tipe_id) {
-    this.tipe_id = tipe_id;
+  public void setKemampuanNama(List<String> kemampuanNama) {
+    this.kemampuanNama = kemampuanNama;
   }
 
-  public ArrayList<String> getKemampuan_id() {
-    return kemampuan_id;
+  public List<Integer> getKemampuanId() {
+    return kemampuanId;
   }
 
-  public void setKemampuan_id(ArrayList<String> kemampuan_id) {
-    this.kemampuan_id = kemampuan_id;
+  public void setKemampuanId(List<Integer> kemampuanId) {
+    this.kemampuanId = kemampuanId;
   }
 
-  public ArrayList<String> getTipe() {
-    return tipe;
+  public List<Integer> getKemampuanPokemonId() {
+    return kemampuanPokemonId;
   }
 
-  public void setTipe(ArrayList<String> tipe) {
-    this.tipe = tipe;
+  public void setKemampuanPokemonId(List<Integer> kemampuanPokemonId) {
+    this.kemampuanPokemonId = kemampuanPokemonId;
   }
-
-  public ArrayList<String> getKemampuan() {
-    return kemampuan;
-  }
-
-  public void setKemampuan(ArrayList<String> kemampuan) {
-    this.kemampuan = kemampuan;
-  }
-
-  public ArrayList<String> getTipe_pokemon_id() {
-    return tipe_pokemon_id;
-  }
-
-  public void setTipe_pokemon_id(ArrayList<String> tipe_pokemon_id) {
-    this.tipe_pokemon_id = tipe_pokemon_id;
-  }
-
-  public ArrayList<String> getKemampuan_pokemon_id() {
-    return kemampuan_pokemon_id;
-  }
-
-  public void setKemampuan_pokemon_id(ArrayList<String> kemampuan_pokemon_id) {
-    this.kemampuan_pokemon_id = kemampuan_pokemon_id;
-  }
-
 
   @Override
   public String toString() {
-    return "Pokemon{"
-            + "id=" + id
-            + ", pokedex_id=" + pokedex_id
-            + ", nama='" + nama + '\''
-            + ", tinggi=" + tinggi
-            + ", berat=" + berat
-            + ", tipe=" + tipe
-            + ", tipe_id=" + tipe_id
-            + ", tipe_pokemon_id=" + tipe_pokemon_id
-            + ", kemampuan=" + kemampuan
-            + ", kemampuan_id=" + kemampuan_id
-            + ", kemampuan_pokemon_id=" + kemampuan_pokemon_id
-            + '}';
+    return "Pokemon{" + "id=" + id + ", pokedexId=" + pokedexId + ", tipeNama=" + tipeNama + ", tipeId=" + tipeId + ", tipePokemonId=" + tipePokemonId + ", nama=" + nama + ", tinggi=" + tinggi + ", berat=" + berat + ", kemampuanNama=" + kemampuanNama + ", kemampuanId=" + kemampuanId + ", kemampuanPokemonId=" + kemampuanPokemonId + '}';
   }
 
 }

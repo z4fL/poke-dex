@@ -10,6 +10,9 @@ import view.FramePokedex;
  */
 public class Pokedex {
 
+  /**
+   * @param args the command line arguments
+   */
   public static void main(String[] args) {
     try {
       UIManager.setLookAndFeel(new FlatIntelliJLaf());
@@ -21,7 +24,7 @@ public class Pokedex {
         }
       });
     } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-      java.util.logging.Logger.getLogger(FramePokedex.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+      System.err.println("error in Main Class: " + ex.getMessage());
     }
   }
 
