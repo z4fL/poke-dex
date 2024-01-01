@@ -18,12 +18,15 @@ public class FramePokedex extends javax.swing.JFrame {
 
   Connection conn;
   MySQLConnection connDB = new MySQLConnection();
+  boolean isLogin = false;
+  FramePokemon frPokemon = new FramePokemon();
 
   public FramePokedex() {
     initComponents();
     setLocationRelativeTo(null);
 
     menuPokedex.setEnabled(false);
+    menuLogout.setEnabled(false);
   }
 
   /**
@@ -188,21 +191,23 @@ public class FramePokedex extends javax.swing.JFrame {
   }// </editor-fold>//GEN-END:initComponents
 
   private void menuPokemonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuPokemonActionPerformed
-    FramePokemon frPokemon = new FramePokemon();
     addFrame(frPokemon);
   }//GEN-LAST:event_menuPokemonActionPerformed
 
   private void menuLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLoginActionPerformed
-    if (dialogLogin.isShowing()) {
-      dialogLogin.dispose();
-    } else {
-      dialogLogin.setVisible(true);
-      dialogLogin.setLocationRelativeTo(null);
-    }
+    showDialog();
   }//GEN-LAST:event_menuLoginActionPerformed
 
   private void menuLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLogoutActionPerformed
-    // TODO add your handling code here:
+    if (isLogin) {
+      frPokemon.setVisible(false);
+      frPokemon.dispose();
+      mainDesktopPane.remove(frPokemon);
+      isLogin = false;
+      menuLogin.setEnabled(true);
+      menuLogout.setEnabled(false);
+      showDialog();
+    }
   }//GEN-LAST:event_menuLogoutActionPerformed
 
   private void menuExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuExitActionPerformed
@@ -229,9 +234,12 @@ public class FramePokedex extends javax.swing.JFrame {
           if (BCrypt.checkpw(new String(password), rs.getString("password"))) {
             dialogLogin.setVisible(false);
             dialogLogin.dispose();
+
             menuPokedex.setEnabled(true);
-            
-            FramePokemon frPokemon = new FramePokemon();
+            menuLogin.setEnabled(false);
+            menuLogout.setEnabled(true);
+            isLogin = true;
+
             addFrame(frPokemon);
           } else {
             JOptionPane.showMessageDialog(rootPane, "Username atau Password salah!");
@@ -311,4 +319,14 @@ public class FramePokedex extends javax.swing.JFrame {
     internalFrame.setVisible(true);
     internalFrame.toFront();
   }
+
+  private void showDialog() {
+    if (dialogLogin.isShowing()) {
+      dialogLogin.dispose();
+    } else {
+      dialogLogin.setVisible(true);
+      dialogLogin.setLocationRelativeTo(null);
+    }
+  }
+
 }
