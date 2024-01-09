@@ -6,8 +6,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JDialog;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
+import model.User;
 import org.mindrot.BCrypt;
 
 /**
@@ -19,7 +23,6 @@ public class FramePokedex extends javax.swing.JFrame {
   Connection conn;
   MySQLConnection connDB = new MySQLConnection();
   boolean isLogin = false;
-  FramePokemon frPokemon = new FramePokemon();
 
   public FramePokedex() {
     initComponents();
@@ -41,13 +44,21 @@ public class FramePokedex extends javax.swing.JFrame {
     dialogLogin = new javax.swing.JDialog();
     jLabel2 = new javax.swing.JLabel();
     jLabel3 = new javax.swing.JLabel();
-    tfUser = new javax.swing.JTextField();
+    tfUserLg = new javax.swing.JTextField();
     btnLogin = new javax.swing.JButton();
-    tfPassword = new javax.swing.JPasswordField();
+    tfPasswordLg = new javax.swing.JPasswordField();
     jLabel1 = new javax.swing.JLabel();
+    dialogRegistrasi = new javax.swing.JDialog();
+    jLabel4 = new javax.swing.JLabel();
+    jLabel5 = new javax.swing.JLabel();
+    tfUserRg = new javax.swing.JTextField();
+    btnRegistrasi = new javax.swing.JButton();
+    tfPasswordRg = new javax.swing.JPasswordField();
+    jLabel6 = new javax.swing.JLabel();
     mainDesktopPane = new javax.swing.JDesktopPane();
     jMenuBar1 = new javax.swing.JMenuBar();
     menu = new javax.swing.JMenu();
+    menuRegistrasi = new javax.swing.JMenuItem();
     menuLogin = new javax.swing.JMenuItem();
     menuLogout = new javax.swing.JMenuItem();
     menuExit = new javax.swing.JMenuItem();
@@ -64,16 +75,12 @@ public class FramePokedex extends javax.swing.JFrame {
     jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
     jLabel3.setText("Password");
 
-    tfUser.setText("admin");
-
     btnLogin.setText("Login");
     btnLogin.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         btnLoginActionPerformed(evt);
       }
     });
-
-    tfPassword.setText("admin");
 
     jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
     jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -98,8 +105,8 @@ public class FramePokedex extends javax.swing.JFrame {
           .addComponent(jLabel2))
         .addGap(18, 18, 18)
         .addGroup(dialogLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-          .addComponent(tfUser)
-          .addComponent(tfPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+          .addComponent(tfUserLg)
+          .addComponent(tfPasswordLg, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
         .addContainerGap(85, Short.MAX_VALUE))
     );
     dialogLoginLayout.setVerticalGroup(
@@ -110,13 +117,74 @@ public class FramePokedex extends javax.swing.JFrame {
         .addGap(51, 51, 51)
         .addGroup(dialogLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
           .addComponent(jLabel2)
-          .addComponent(tfUser, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+          .addComponent(tfUserLg, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
         .addGap(18, 18, 18)
         .addGroup(dialogLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
           .addComponent(jLabel3)
-          .addComponent(tfPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+          .addComponent(tfPasswordLg, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
         .addGap(31, 31, 31)
         .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addContainerGap(81, Short.MAX_VALUE))
+    );
+
+    dialogRegistrasi.setMinimumSize(new java.awt.Dimension(440, 340));
+    dialogRegistrasi.setPreferredSize(new java.awt.Dimension(440, 340));
+
+    jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+    jLabel4.setText("Username");
+
+    jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+    jLabel5.setText("Password");
+
+    btnRegistrasi.setText("Registrasi");
+    btnRegistrasi.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnRegistrasiActionPerformed(evt);
+      }
+    });
+
+    jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+    jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+    jLabel6.setText("Registrasi Pokédex");
+
+    javax.swing.GroupLayout dialogRegistrasiLayout = new javax.swing.GroupLayout(dialogRegistrasi.getContentPane());
+    dialogRegistrasi.getContentPane().setLayout(dialogRegistrasiLayout);
+    dialogRegistrasiLayout.setHorizontalGroup(
+      dialogRegistrasiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(dialogRegistrasiLayout.createSequentialGroup()
+        .addContainerGap()
+        .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        .addContainerGap())
+      .addGroup(dialogRegistrasiLayout.createSequentialGroup()
+        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        .addComponent(btnRegistrasi)
+        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+      .addGroup(dialogRegistrasiLayout.createSequentialGroup()
+        .addGap(75, 75, 75)
+        .addGroup(dialogRegistrasiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+          .addComponent(jLabel5)
+          .addComponent(jLabel4))
+        .addGap(18, 18, 18)
+        .addGroup(dialogRegistrasiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+          .addComponent(tfUserRg)
+          .addComponent(tfPasswordRg, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+        .addContainerGap(85, Short.MAX_VALUE))
+    );
+    dialogRegistrasiLayout.setVerticalGroup(
+      dialogRegistrasiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(dialogRegistrasiLayout.createSequentialGroup()
+        .addGap(37, 37, 37)
+        .addComponent(jLabel6)
+        .addGap(51, 51, 51)
+        .addGroup(dialogRegistrasiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+          .addComponent(jLabel4)
+          .addComponent(tfUserRg, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+        .addGap(18, 18, 18)
+        .addGroup(dialogRegistrasiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+          .addComponent(jLabel5)
+          .addComponent(tfPasswordRg, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+        .addGap(31, 31, 31)
+        .addComponent(btnRegistrasi, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addContainerGap(51, Short.MAX_VALUE))
     );
 
@@ -135,6 +203,14 @@ public class FramePokedex extends javax.swing.JFrame {
     );
 
     menu.setText("Menu");
+
+    menuRegistrasi.setText("Registrasi");
+    menuRegistrasi.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        menuRegistrasiActionPerformed(evt);
+      }
+    });
+    menu.add(menuRegistrasi);
 
     menuLogin.setText("Login");
     menuLogin.addActionListener(new java.awt.event.ActionListener() {
@@ -191,22 +267,22 @@ public class FramePokedex extends javax.swing.JFrame {
   }// </editor-fold>//GEN-END:initComponents
 
   private void menuPokemonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuPokemonActionPerformed
+    FramePokemon frPokemon = new FramePokemon();
     addFrame(frPokemon);
   }//GEN-LAST:event_menuPokemonActionPerformed
 
   private void menuLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLoginActionPerformed
-    showDialog();
+    showDialog(dialogLogin);
   }//GEN-LAST:event_menuLoginActionPerformed
 
   private void menuLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLogoutActionPerformed
     if (isLogin) {
-      frPokemon.setVisible(false);
-      frPokemon.dispose();
-      mainDesktopPane.remove(frPokemon);
+      closeInternalFrame();
       isLogin = false;
+      menuRegistrasi.setEnabled(true);
       menuLogin.setEnabled(true);
       menuLogout.setEnabled(false);
-      showDialog();
+      showDialog(dialogLogin);
     }
   }//GEN-LAST:event_menuLogoutActionPerformed
 
@@ -215,31 +291,34 @@ public class FramePokedex extends javax.swing.JFrame {
   }//GEN-LAST:event_menuExitActionPerformed
 
   private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-    String username = tfUser.getText();
-    char[] password = tfPassword.getPassword();
+    String username = tfUserLg.getText();
+    char[] password = tfPasswordLg.getPassword();
 
     if (username.isEmpty()) {
-      tfUser.requestFocus();
+      tfUserLg.requestFocus();
     } else if (password.length == 0) {
-      tfPassword.requestFocus();
+      tfPasswordLg.requestFocus();
     } else {
       try {
-        String query = "SELECT `nama`, `password` FROM `admin` WHERE `nama`=?";
+        String query = "SELECT `nama`, `password` FROM `user` WHERE `nama`=?";
         conn = connDB.getConnection();
         PreparedStatement ps = conn.prepareStatement(query);
         ps.setString(1, username);
         ResultSet rs = ps.executeQuery();
         if (rs.next()) {
-          // String getNama = rs.getString("nama");
           if (BCrypt.checkpw(new String(password), rs.getString("password"))) {
-            dialogLogin.setVisible(false);
+            JOptionPane.showMessageDialog(rootPane, "Selamat Datang, " + username + "!");
+            User.setUsername(username);
             dialogLogin.dispose();
 
             menuPokedex.setEnabled(true);
+            menuRegistrasi.setEnabled(false);
             menuLogin.setEnabled(false);
             menuLogout.setEnabled(true);
             isLogin = true;
 
+            closeInternalFrame();
+            FramePokemon frPokemon = new FramePokemon();
             addFrame(frPokemon);
           } else {
             JOptionPane.showMessageDialog(rootPane, "Username atau Password salah!");
@@ -252,6 +331,39 @@ public class FramePokedex extends javax.swing.JFrame {
       }
     }
   }//GEN-LAST:event_btnLoginActionPerformed
+
+  private void menuRegistrasiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRegistrasiActionPerformed
+    showDialog(dialogRegistrasi);
+  }//GEN-LAST:event_menuRegistrasiActionPerformed
+
+  private void btnRegistrasiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrasiActionPerformed
+    String username = tfUserRg.getText();
+    char[] password = tfPasswordRg.getPassword();
+
+    if (username.isEmpty()) {
+      tfUserLg.requestFocus();
+    } else if (password.length == 0) {
+      tfPasswordLg.requestFocus();
+    } else {
+      try {
+        String query = "INSERT INTO `user`(`nama`, `password`) VALUES (?,?)";
+        conn = connDB.getConnection();
+        PreparedStatement ps = conn.prepareStatement(query);
+        ps.setString(1, username);
+        ps.setString(2, BCrypt.hashpw(new String(password), BCrypt.gensalt()));
+        if (ps.executeUpdate() != 0) {
+          JOptionPane.showMessageDialog(rootPane, "Registrasi berhasil!");
+          dialogRegistrasi.dispose();
+          showDialog(dialogLogin);
+        } else {
+          JOptionPane.showMessageDialog(rootPane, "Registrasi gagal!");
+        }
+      } catch (SQLException ex) {
+        System.out.println("Error in btnRegistrasi: " + ex.getMessage());
+        JOptionPane.showMessageDialog(rootPane, "Registrasi gagal! Coba dengan username lain.");
+      }
+    }
+  }//GEN-LAST:event_btnRegistrasiActionPerformed
 
   /**
    * @param args the command line arguments
@@ -290,10 +402,15 @@ public class FramePokedex extends javax.swing.JFrame {
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JButton btnLogin;
+  private javax.swing.JButton btnRegistrasi;
   private javax.swing.JDialog dialogLogin;
+  private javax.swing.JDialog dialogRegistrasi;
   private javax.swing.JLabel jLabel1;
   private javax.swing.JLabel jLabel2;
   private javax.swing.JLabel jLabel3;
+  private javax.swing.JLabel jLabel4;
+  private javax.swing.JLabel jLabel5;
+  private javax.swing.JLabel jLabel6;
   private javax.swing.JMenuBar jMenuBar1;
   public javax.swing.JDesktopPane mainDesktopPane;
   private javax.swing.JMenu menu;
@@ -302,14 +419,15 @@ public class FramePokedex extends javax.swing.JFrame {
   private javax.swing.JMenuItem menuLogout;
   public javax.swing.JMenu menuPokedex;
   private javax.swing.JMenuItem menuPokemon;
-  private javax.swing.JPasswordField tfPassword;
-  private javax.swing.JTextField tfUser;
+  private javax.swing.JMenuItem menuRegistrasi;
+  private javax.swing.JPasswordField tfPasswordLg;
+  private javax.swing.JPasswordField tfPasswordRg;
+  private javax.swing.JTextField tfUserLg;
+  private javax.swing.JTextField tfUserRg;
   // End of variables declaration//GEN-END:variables
 
   private void addFrame(JInternalFrame internalFrame) {
-    if (mainDesktopPane.getAllFrames().length > 0) {
-      mainDesktopPane.remove(0);
-    }
+    closeInternalFrame();
     mainDesktopPane.add(internalFrame);
     try {
       internalFrame.setMaximum(true);
@@ -320,12 +438,22 @@ public class FramePokedex extends javax.swing.JFrame {
     internalFrame.toFront();
   }
 
-  private void showDialog() {
-    if (dialogLogin.isShowing()) {
-      dialogLogin.dispose();
+  private void showDialog(JDialog dialog) {
+    if (dialog.isShowing()) {
+      dialog.dispose();
     } else {
-      dialogLogin.setVisible(true);
-      dialogLogin.setLocationRelativeTo(null);
+      dialog.setVisible(true);
+      dialog.setLocationRelativeTo(null);
+    }
+  }
+
+  private void closeInternalFrame() {
+    JInternalFrame[] frames = mainDesktopPane.getAllFrames();
+    for (JInternalFrame frame : frames) {
+      if (frame.isSelected()) {
+        frame.dispose();
+        break;
+      }
     }
   }
 

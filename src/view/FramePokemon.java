@@ -14,21 +14,24 @@ import javax.swing.JTable;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import model.ComboBoxItem;
 import model.Pokemon;
+import model.User;
 
 /**
  *
  * @author ZAFL
  */
 public class FramePokemon extends javax.swing.JInternalFrame {
-  
+
   private boolean isInitialSetup = true;
-  
+
   boolean isOnEdit;
   int nextID;
   QueryExecutor qe = new QueryExecutor();
   PokemonController pc = new PokemonController();
   TablePokemonController tpc = new TablePokemonController();
-  
+
+  String user = User.getUsername();
+
   public FramePokemon() {
     initComponents();
     // borderless
@@ -37,7 +40,7 @@ public class FramePokemon extends javax.swing.JInternalFrame {
     ((BasicInternalFrameUI) this.getUI()).setSouthPane(null);
     ((BasicInternalFrameUI) this.getUI()).setWestPane(null);
     this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-    
+
     tbPokemon.setModel(tpc);
     int col[] = {0, 7, 8};
     for (int i : col) {
@@ -45,21 +48,25 @@ public class FramePokemon extends javax.swing.JInternalFrame {
       tbPokemon.getColumnModel().getColumn(i).setMaxWidth(0);
       tbPokemon.getColumnModel().getColumn(i).setWidth(0);
     }
-    
+
     pc.readDataTable("", "Semua", tpc);
-    
+
     addComboBoxItem(cbTipe, "tipe", true);
-    
+
     getID();
     addComboBoxItem(cbTipe1, "tipe", false);
     addComboBoxItem(cbTipe2, "tipe", false);
     addComboBoxItem(cbKemampuan1, "kemampuan", false);
     addComboBoxItem(cbKemampuan2, "kemampuan", false);
-    
+
     lblTipePokemonId.setVisible(false);
     tfTipePokemonID.setVisible(false);
     lblKemampuanPokemonId.setVisible(false);
     tfKemampuanPokemonID.setVisible(false);
+
+    if (!user.equals("admin") && user != null) {
+      btnTambah.setEnabled(false);
+    }
   }
 
   /**
@@ -439,29 +446,29 @@ public class FramePokemon extends javax.swing.JInternalFrame {
 
   private void menuEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEditActionPerformed
     int baris = tbPokemon.getSelectedRow();
-    
+
     if (baris != -1) {
       tfID.setText(tbPokemon.getValueAt(baris, 0).toString());
       tfPokedexID.setText(tbPokemon.getValueAt(baris, 1).toString());
       tfNama.setText(tbPokemon.getValueAt(baris, 2).toString());
       tfTinggi.setText(tbPokemon.getValueAt(baris, 4).toString());
       tfBerat.setText(tbPokemon.getValueAt(baris, 5).toString());
-      
+
       String[] tipe = tbPokemon.getValueAt(baris, 3).toString().split(", ");
       cbTipe1.getModel().setSelectedItem(tipe[0]);
       if (tipe.length == 2) {
         cbTipe2.getModel().setSelectedItem(tipe[1]);
       }
-      
+
       String[] kemampuan = tbPokemon.getValueAt(baris, 6).toString().split(", ");
       cbKemampuan1.getModel().setSelectedItem(kemampuan[0]);
       if (kemampuan.length == 2) {
         cbKemampuan1.getModel().setSelectedItem(kemampuan[1]);
       }
-      
+
       tfTipePokemonID.setText(tbPokemon.getValueAt(baris, 7).toString());
       tfKemampuanPokemonID.setText(tbPokemon.getValueAt(baris, 8).toString());
-      
+
       showDialog("Edit Pokémon", true);
     }
   }//GEN-LAST:event_menuEditActionPerformed
@@ -478,11 +485,13 @@ public class FramePokemon extends javax.swing.JInternalFrame {
       JTable source = (JTable) evt.getSource();
       int row = source.rowAtPoint(evt.getPoint());
       int column = source.columnAtPoint(evt.getPoint());
-      
+
       if (!source.isRowSelected(row)) {
         source.changeSelection(row, column, false, false);
       }
-      popUpTabel.show(evt.getComponent(), evt.getX(), evt.getY());
+      if (user.equals("admin") && user != null) {
+        popUpTabel.show(evt.getComponent(), evt.getX(), evt.getY());
+      }
     }
   }//GEN-LAST:event_tbPokemonMouseReleased
 
@@ -505,7 +514,7 @@ public class FramePokemon extends javax.swing.JInternalFrame {
       isOnEdit = false;
     }
     clearField();
-    System.out.println("isOnEdit="+this.isOnEdit);
+    System.out.println("isOnEdit=" + this.isOnEdit);
   }//GEN-LAST:event_btnCancelActionPerformed
 
 
@@ -556,10 +565,10 @@ public class FramePokemon extends javax.swing.JInternalFrame {
     String keyword = tfCariNama.getText();
     int index = cbTipe.getSelectedIndex();
     String tipeNama = (index != -1 && index < cbTipe.getItemCount()) ? cbTipe.getItemAt(index).getNama() : "";
-    
+
     pc.readDataTable(keyword, tipeNama, tpc);
   }
-  
+
   private void showDialog(String judul, boolean isOnEdit) {
     if (isOnEdit) {
       this.isOnEdit = true;
@@ -568,12 +577,12 @@ public class FramePokemon extends javax.swing.JInternalFrame {
     dlgPokemon.setLocationRelativeTo(null);
     dlgPokemon.setVisible(true);
   }
-  
+
   private void disposeDialog() {
     dlgPokemon.setVisible(false);
     dlgPokemon.dispose();
   }
-  
+
   private void getID() {
     try {
       List<Map<String, Object>> getData = qe.querySelect("SELECT `id` FROM `pokemon` ORDER BY `id` DESC LIMIT 1");
@@ -584,7 +593,7 @@ public class FramePokemon extends javax.swing.JInternalFrame {
       System.err.println("Error in getID: " + e.getMessage());
     }
   }
-  
+
   private void addComboBoxItem(JComboBox<ComboBoxItem> comboBox, String tabel, boolean isFromJFrame) {
     comboBox.removeAllItems();
     if (isFromJFrame) {
@@ -592,10 +601,10 @@ public class FramePokemon extends javax.swing.JInternalFrame {
     } else {
       comboBox.addItem(new ComboBoxItem(0, "-- Pilih " + ((tabel.equals("tipe")) ? "tipe" : "kemampuan") + " --"));
     }
-    
+
     try {
       List<Map<String, Object>> dataList = qe.querySelect("SELECT `id`,`nama` FROM `" + tabel + "` ORDER BY `nama` ASC");
-      
+
       for (Map<String, Object> row : dataList) {
         comboBox.addItem(
             new ComboBoxItem(
@@ -607,9 +616,9 @@ public class FramePokemon extends javax.swing.JInternalFrame {
     } catch (SQLException e) {
       System.err.println("Error in getID: " + e.getMessage());
     }
-    
+
   }
-  
+
   private void clearField() {
     tfPokedexID.setText("");
     tfNama.setText("");
@@ -622,11 +631,11 @@ public class FramePokemon extends javax.swing.JInternalFrame {
     tfTipePokemonID.setText("");
     tfKemampuanPokemonID.setText("");
   }
-  
+
   private void tambahPokemon() {
     List<Integer> tipeId = new ArrayList<>(),
         kemampuanId = new ArrayList<>();
-    
+
     String id = tfID.getText();
     String pokedexID = tfPokedexID.getText();
     String nama = tfNama.getText();
@@ -636,7 +645,7 @@ public class FramePokemon extends javax.swing.JInternalFrame {
     int tipe2 = cbTipe2.getItemAt(cbTipe2.getSelectedIndex()).getId();
     int kemampuan1 = cbKemampuan1.getItemAt(cbKemampuan1.getSelectedIndex()).getId();
     int kemampuan2 = cbKemampuan2.getItemAt(cbKemampuan2.getSelectedIndex()).getId();
-    
+
     if (pokedexID.isBlank()) {
       JOptionPane.showMessageDialog(rootPane, "Pokedex ID belum terisi!");
     } else if (nama.isBlank()) {
@@ -654,7 +663,7 @@ public class FramePokemon extends javax.swing.JInternalFrame {
       tipeId.add(tipe2);
       kemampuanId.add(kemampuan1);
       kemampuanId.add(kemampuan2);
-      
+
       Pokemon p = new Pokemon(
           Integer.parseInt(id),
           Integer.parseInt(pokedexID),
@@ -664,7 +673,7 @@ public class FramePokemon extends javax.swing.JInternalFrame {
           Float.parseFloat(berat),
           kemampuanId
       );
-      
+
       if (pc.insert(p) == 1) {
         JOptionPane.showMessageDialog(null, "Data berhasil disimpan");
         getID();
@@ -675,13 +684,13 @@ public class FramePokemon extends javax.swing.JInternalFrame {
       }
     }
   }
-  
+
   private void ubahPokemon() {
     List<Integer> tipeId = new ArrayList<>(),
         kemampuanId = new ArrayList<>(),
         tipePokemon = new ArrayList<>(),
         kemampuanPokemon = new ArrayList<>();
-    
+
     String id = tfID.getText();
     String pokedexID = tfPokedexID.getText();
     String nama = tfNama.getText();
@@ -693,7 +702,7 @@ public class FramePokemon extends javax.swing.JInternalFrame {
     int kemampuan2 = cbKemampuan2.getItemAt(cbKemampuan2.getSelectedIndex()).getId();
     String[] tipePokemonID = tfTipePokemonID.getText().split(", ");
     String[] kemampuanPokemonID = tfKemampuanPokemonID.getText().split(", ");
-    
+
     if (pokedexID.isBlank()) {
       JOptionPane.showMessageDialog(rootPane, "Pokedex ID belum terisi!");
     } else if (nama.isBlank()) {
@@ -719,7 +728,7 @@ public class FramePokemon extends javax.swing.JInternalFrame {
       if (kemampuanPokemonID.length == 2) {
         kemampuanPokemon.add(Integer.valueOf(kemampuanPokemonID[1]));
       }
-      
+
       Pokemon p = new Pokemon(
           Integer.parseInt(id),
           Integer.parseInt(pokedexID),
@@ -731,7 +740,7 @@ public class FramePokemon extends javax.swing.JInternalFrame {
           kemampuanId,
           kemampuanPokemon
       );
-      
+
       if (pc.update(p) == 1) {
         JOptionPane.showMessageDialog(null, "Data berhasil diubah");
         disposeDialog();
@@ -743,11 +752,11 @@ public class FramePokemon extends javax.swing.JInternalFrame {
       }
     }
   }
-  
+
   private void hapusPokemon(int baris) {
     String id = tbPokemon.getValueAt(baris, 0).toString();
     String nama = tbPokemon.getValueAt(baris, 2).toString();
-    
+
     int dialogResult = JOptionPane.showConfirmDialog(
         this,
         "Hapus Pokémon " + nama + "?",
@@ -756,7 +765,7 @@ public class FramePokemon extends javax.swing.JInternalFrame {
     if (dialogResult == JOptionPane.YES_OPTION) {
       Pokemon p = new Pokemon();
       p.setId(Integer.parseInt(id));
-      
+
       if (pc.delete(p) == 1) {
         JOptionPane.showMessageDialog(null, "Data berhasil dihapus");
         disposeDialog();
@@ -765,7 +774,7 @@ public class FramePokemon extends javax.swing.JInternalFrame {
         JOptionPane.showMessageDialog(null, "Data gagal dihapus");
       }
     }
-    
+
   }
-  
+
 }
