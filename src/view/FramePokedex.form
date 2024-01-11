@@ -78,9 +78,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="tfUserLg">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="admin"/>
-          </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnLogin">
           <Properties>
@@ -91,9 +88,6 @@
           </Events>
         </Component>
         <Component class="javax.swing.JPasswordField" name="tfPasswordLg">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="admin"/>
-          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>

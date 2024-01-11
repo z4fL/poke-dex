@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 31, 2023 at 07:52 AM
+-- Generation Time: Jan 11, 2024 at 02:00 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -424,7 +424,17 @@ CREATE TABLE `kemampuan_pokemon` (
 --
 
 INSERT INTO `kemampuan_pokemon` (`id`, `pokemon_id`, `kemampuan_id`) VALUES
-(1, 1, 65);
+(4, 4, 65),
+(5, 5, 65),
+(6, 6, 66),
+(7, 7, 66),
+(8, 8, 66),
+(9, 9, 67),
+(10, 10, 67),
+(11, 11, 67),
+(12, 12, 19),
+(13, 13, 61),
+(19, 18, 14);
 
 -- --------------------------------------------------------
 
@@ -445,7 +455,17 @@ CREATE TABLE `pokemon` (
 --
 
 INSERT INTO `pokemon` (`id`, `pokedex_id`, `nama`, `tinggi`, `berat`) VALUES
-(1, 0001, 'Bulbasaur', 0.7, 6.9);
+(4, 0002, 'Ivysaur', 1, 13),
+(5, 0003, 'Venusaur', 2, 100),
+(6, 0004, 'Charmander', 0.6, 8.5),
+(7, 0005, 'Charmeleon', 1.1, 19),
+(8, 0006, 'Charizard', 1.7, 90.5),
+(9, 0007, 'Squirtle', 0.5, 9),
+(10, 0008, 'Wartortle', 1, 22.5),
+(11, 0009, 'Blastoise', 1.6, 85.5),
+(12, 0010, 'Caterpie', 0.3, 2.9),
+(13, 0011, 'Metapod', 0.7, 9.9),
+(18, 0012, 'Butterfree', 1.1, 32);
 
 -- --------------------------------------------------------
 
@@ -464,8 +484,21 @@ CREATE TABLE `pokemon_tipe` (
 --
 
 INSERT INTO `pokemon_tipe` (`id`, `pokemon_id`, `tipe_id`) VALUES
-(1, 1, 12),
-(2, 1, 4);
+(7, 4, 12),
+(8, 4, 4),
+(9, 5, 12),
+(10, 5, 4),
+(11, 6, 10),
+(12, 7, 10),
+(13, 8, 10),
+(14, 8, 3),
+(15, 9, 11),
+(16, 10, 11),
+(17, 11, 11),
+(18, 12, 7),
+(19, 13, 7),
+(28, 18, 7),
+(29, 18, 3);
 
 -- --------------------------------------------------------
 
@@ -503,6 +536,27 @@ INSERT INTO `tipe` (`id`, `nama`) VALUES
 (18, 'fairy'),
 (19, 'unknown'),
 (20, 'shadow');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user`
+--
+
+CREATE TABLE `user` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `nama` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`id`, `nama`, `password`) VALUES
+(1, 'admin', '$2a$10$eyJ0G733zvzNJj1Eax4U8.obSb1jl0AUnjdLqzUGUHyvtIAM1.bNq'),
+(10, 'orang1', '$2a$10$tG4Hrxrt8yCygLmZhSu3BORDwoLTvYBJXvLRqgH9e9lxo1zC.vEmS'),
+(11, 'orang2', '$2a$10$PW5WsqSYzAQL7X5xvfyt2OgwkwlmK0/e7R69JyvaSbzn2uxpVUkf6');
 
 --
 -- Indexes for dumped tables
@@ -543,6 +597,13 @@ ALTER TABLE `tipe`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `nama` (`nama`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -556,25 +617,31 @@ ALTER TABLE `kemampuan`
 -- AUTO_INCREMENT for table `kemampuan_pokemon`
 --
 ALTER TABLE `kemampuan_pokemon`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `pokemon`
 --
 ALTER TABLE `pokemon`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `pokemon_tipe`
 --
 ALTER TABLE `pokemon_tipe`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `tipe`
 --
 ALTER TABLE `tipe`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Constraints for dumped tables

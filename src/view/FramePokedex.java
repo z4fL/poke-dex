@@ -74,16 +74,12 @@ public class FramePokedex extends javax.swing.JFrame {
     jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
     jLabel3.setText("Password");
 
-    tfUserLg.setText("admin");
-
     btnLogin.setText("Login");
     btnLogin.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         btnLoginActionPerformed(evt);
       }
     });
-
-    tfPasswordLg.setText("admin");
 
     jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
     jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);

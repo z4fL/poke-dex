@@ -6,6 +6,7 @@ import core.QueryExecutor;
 import java.awt.event.ItemEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import javax.swing.JComboBox;
@@ -476,15 +477,17 @@ public class FramePokemon extends javax.swing.JInternalFrame {
       tfBerat.setText(tbPokemon.getValueAt(baris, 5).toString().replaceAll("[a-z]", "").trim());
 
       String[] tipe = tbPokemon.getValueAt(baris, 3).toString().split(", ");
+      System.out.println(Arrays.toString(tipe));
       cbTipe1.getModel().setSelectedItem(tipe[0]);
       if (tipe.length == 2) {
         cbTipe2.getModel().setSelectedItem(tipe[1]);
       }
 
       String[] kemampuan = tbPokemon.getValueAt(baris, 6).toString().split(", ");
+      System.out.println(Arrays.toString(kemampuan));
       cbKemampuan1.getModel().setSelectedItem(kemampuan[0]);
       if (kemampuan.length == 2) {
-        cbKemampuan1.getModel().setSelectedItem(kemampuan[1]);
+        cbKemampuan2.getModel().setSelectedItem(kemampuan[1]);
       }
 
       tfTipePokemonID.setText(tbPokemon.getValueAt(baris, 7).toString());
@@ -535,7 +538,7 @@ public class FramePokemon extends javax.swing.JInternalFrame {
       isOnEdit = false;
     }
     clearField();
-    System.out.println("isOnEdit=" + this.isOnEdit);
+//    System.out.println("isOnEdit=" + this.isOnEdit);
   }//GEN-LAST:event_btnCancelActionPerformed
 
 
@@ -708,7 +711,7 @@ public class FramePokemon extends javax.swing.JInternalFrame {
           kemampuanId
       );
 
-      if (pc.insert(p) == 1) {
+      if (pc.insert(p) > 0) {
         JOptionPane.showMessageDialog(null, "Data berhasil disimpan");
         getID();
         clearField();
@@ -780,8 +783,8 @@ public class FramePokemon extends javax.swing.JInternalFrame {
           kemampuanPokemon
       );
 
-      System.out.println(p.toString());
-      if (pc.update(p) == 1) {
+      System.out.println("--------");
+      if (pc.update(p) > 0) {
         JOptionPane.showMessageDialog(null, "Data berhasil diubah");
         disposeDialog();
         tfID.setText(String.valueOf(nextID));

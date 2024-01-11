@@ -28,8 +28,10 @@ public class PokemonController {
 
     try {
       affectedRows = qe.queryIUD(query);
-      insertRelationTable("tipe", pkm.getId(), pkm.getTipeId());
-      insertRelationTable("kemampuan", pkm.getId(), pkm.getKemampuanId());
+      if (affectedRows > 0) {
+        insertRelationTable("tipe", pkm.getId(), pkm.getTipeId());
+        insertRelationTable("kemampuan", pkm.getId(), pkm.getKemampuanId());
+      }
 
       return affectedRows;
     } catch (SQLException e) {
@@ -116,38 +118,48 @@ public class PokemonController {
         + "`berat`='" + pkm.getBerat() + "'"
         + " WHERE `id`='" + pkm.getId() + "'";
     System.out.println("sql update pokemon: " + query);
-    updateRelationTable("tipe", pkm.getTipePokemonId(), pkm.getId(), pkm.getTipeId());
-//    updateRelationTable("kemampuan", pkm.getKemampuanPokemonId(), pkm.getId(), pkm.getKemampuanId());
-//    try {
-//      affectedRows = qe.queryIUD(query);
-//
-//      return affectedRows;
-//    } catch (SQLException e) {
-//      return 0;
-//    }
-    return 0;
+    try {
+      affectedRows = qe.queryIUD(query);
+      if (affectedRows > 0) {
+        updateRelationTable("tipe", pkm.getTipePokemonId(), pkm.getId(), pkm.getTipeId());
+        updateRelationTable("kemampuan", pkm.getKemampuanPokemonId(), pkm.getId(), pkm.getKemampuanId());
+      }
+
+      return affectedRows;
+    } catch (SQLException e) {
+      return 0;
+    }
   }
 
   private void updateRelationTable(String table, List<Integer> m2mId, int pokemonId, List<Integer> dataId) {
-    System.out.println("M2M ID: " + m2mId);
-    System.out.println("data ID: " + dataId);
-    for (int i = 0; i < dataId.size(); i++) {
+    List<Integer> data = (dataId.size() >= m2mId.size()) ? dataId : m2mId;
+
+    for (int i = 0; i < data.size(); i++) {
       String query = "";
 
       if (dataId.size() == m2mId.size()) {
         query = generateUpdateQuery(table, pokemonId, dataId.get(i), m2mId.get(i));
+        System.out.println(query);
+        executeQuery(query);
       } else {
         if (i == 0) {
           query = generateUpdateQuery(table, pokemonId, dataId.get(i), m2mId.get(i));
+          System.out.println(query);
+          executeQuery(query);
         }
+
         if (i == 1 && dataId.size() == 2) {
           query = generateInsertQuery(table, pokemonId, dataId.get(i));
-        } else if (i == 1 && dataId.size() == 1) {
+          System.out.println(query);
+          executeQuery(query);
+        }
+
+        if (i == 1 && m2mId.size() == 2) {
           query = generateDeleteQuery(table, m2mId.get(i));
+          System.out.println(query);
+          executeQuery(query);
         }
       }
-      System.out.println(query);
-//      executeQuery(query);
     }
   }
 
@@ -170,7 +182,7 @@ public class PokemonController {
 
   private void executeQuery(String query) {
     try {
-      affectedRows = qe.queryIUD(query);
+      qe.queryIUD(query);
     } catch (SQLException ex) {
       System.err.println("Error in editM2M(): " + ex.getMessage());
     }
@@ -187,44 +199,4 @@ public class PokemonController {
       return 0;
     }
   }
-
-//  private void updateRelationTable(String tabel, List<Integer> m2mId, int pokemonId, List<Integer> dataId) {
-//    for (int i = 0; i < dataId.size(); i++) {
-//      String query = "";
-//
-//      if (dataId.size() == m2mId.size()) {
-//        query = "UPDATE `" + (tabel.equals("tipe") ? "pokemon_tipe" : "kemampuan_pokemon") + "` SET "
-//            + "`pokemon_id`='" + pokemonId + "',"
-//            + "`" + (tabel.equals("tipe") ? "tipe_id" : "kemampuan_id") + "`='" + dataId.get(i) + "' "
-//            + "WHERE `id`='" + m2mId.get(i) + "'";
-//        try {
-//          affectedRows = qe.queryIUD(query);
-//        } catch (SQLException ex) {
-//          System.err.println("Error in editM2M(): " + ex.getMessage());
-//        }
-//      } else {
-//        if (i == 0) {
-//          query = "UPDATE `" + (tabel.equals("tipe") ? "pokemon_tipe" : "kemampuan_pokemon") + "` SET "
-//              + "`pokemon_id`='" + pokemonId + "',"
-//              + "`" + (tabel.equals("tipe") ? "tipe_id" : "kemampuan_id") + "`='" + dataId.get(i) + "' "
-//              + "WHERE `id`='" + m2mId.get(i) + "'";
-//          try {
-//            affectedRows = qe.queryIUD(query);
-//          } catch (SQLException ex) {
-//            System.err.println("Error in editM2M(): " + ex.getMessage());
-//          }
-//        }
-//        if (i == 1 && dataId.size() == 2) {
-//          query = "INSERT INTO `" + (tabel.equals("tipe") ? "pokemon_tipe" : "kemampuan_pokemon")
-//              + "` (`pokemon_id`, `" + tabel + "_id`) VALUES "
-//              + "('" + pokemonId + "', '" + dataId.get(i) + "')";
-//          try {
-//            affectedRows = qe.queryIUD(query);
-//          } catch (SQLException ex) {
-//            System.err.println("Error in editM2M(): " + ex.getMessage());
-//          }
-//        }
-//      }
-//    }
-//  }
 }
