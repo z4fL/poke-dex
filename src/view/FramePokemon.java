@@ -52,13 +52,15 @@ public class FramePokemon extends javax.swing.JInternalFrame {
     pc.readDataTable("", "Semua", tpc);
 
     addComboBoxItem(cbTipe, "tipe", true);
-
     getID();
+
     addComboBoxItem(cbTipe1, "tipe", false);
     addComboBoxItem(cbTipe2, "tipe", false);
     addComboBoxItem(cbKemampuan1, "kemampuan", false);
     addComboBoxItem(cbKemampuan2, "kemampuan", false);
 
+    labelID.setVisible(false);
+    tfID.setVisible(false);
     lblTipePokemonId.setVisible(false);
     tfTipePokemonID.setVisible(false);
     lblKemampuanPokemonId.setVisible(false);
@@ -80,7 +82,7 @@ public class FramePokemon extends javax.swing.JInternalFrame {
 
     dlgPokemon = new javax.swing.JDialog();
     labelJudulDialog = new javax.swing.JLabel();
-    jLabel5 = new javax.swing.JLabel();
+    labelID = new javax.swing.JLabel();
     tfID = new javax.swing.JTextField();
     jLabel6 = new javax.swing.JLabel();
     tfPokedexID = new javax.swing.JTextField();
@@ -106,6 +108,8 @@ public class FramePokemon extends javax.swing.JInternalFrame {
     tfKemampuanPokemonID = new javax.swing.JTextField();
     lblTipePokemonId = new javax.swing.JLabel();
     lblKemampuanPokemonId = new javax.swing.JLabel();
+    jLabel4 = new javax.swing.JLabel();
+    jLabel14 = new javax.swing.JLabel();
     popUpTabel = new javax.swing.JPopupMenu();
     menuEdit = new javax.swing.JMenuItem();
     menuHapus = new javax.swing.JMenuItem();
@@ -120,13 +124,14 @@ public class FramePokemon extends javax.swing.JInternalFrame {
     jLabel3 = new javax.swing.JLabel();
 
     dlgPokemon.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-    dlgPokemon.setMinimumSize(new java.awt.Dimension(450, 630));
+    dlgPokemon.setMinimumSize(new java.awt.Dimension(450, 600));
+    dlgPokemon.setPreferredSize(new java.awt.Dimension(450, 600));
 
     labelJudulDialog.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
     labelJudulDialog.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     labelJudulDialog.setText("Pokémon");
 
-    jLabel5.setText("ID");
+    labelID.setText("ID");
 
     tfID.setEnabled(false);
 
@@ -176,7 +181,7 @@ public class FramePokemon extends javax.swing.JInternalFrame {
         .addComponent(btnSimpan)
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         .addComponent(btnCancel)
-        .addGap(48, 48, 48)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         .addComponent(btnClear)
         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
@@ -195,6 +200,12 @@ public class FramePokemon extends javax.swing.JInternalFrame {
 
     lblKemampuanPokemonId.setText("Kemampuan Pokemon ID");
 
+    jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+    jLabel4.setText("m");
+
+    jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+    jLabel14.setText("kg");
+
     javax.swing.GroupLayout dlgPokemonLayout = new javax.swing.GroupLayout(dlgPokemon.getContentPane());
     dlgPokemon.getContentPane().setLayout(dlgPokemonLayout);
     dlgPokemonLayout.setHorizontalGroup(
@@ -212,7 +223,7 @@ public class FramePokemon extends javax.swing.JInternalFrame {
             .addGroup(dlgPokemonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
               .addComponent(jLabel12)
               .addComponent(jLabel6)
-              .addComponent(jLabel5)
+              .addComponent(labelID)
               .addComponent(jLabel7)
               .addComponent(jLabel8)
               .addComponent(jLabel9)
@@ -229,9 +240,15 @@ public class FramePokemon extends javax.swing.JInternalFrame {
               .addGroup(dlgPokemonLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addGroup(dlgPokemonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                  .addComponent(tfTinggi, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                  .addGroup(dlgPokemonLayout.createSequentialGroup()
+                    .addComponent(tfTinggi, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jLabel4))
                   .addComponent(tfNama, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                  .addComponent(tfBerat, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                  .addGroup(dlgPokemonLayout.createSequentialGroup()
+                    .addComponent(tfBerat, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jLabel14))))
               .addGroup(dlgPokemonLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addGroup(dlgPokemonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -257,7 +274,7 @@ public class FramePokemon extends javax.swing.JInternalFrame {
         .addComponent(labelJudulDialog)
         .addGap(35, 35, 35)
         .addGroup(dlgPokemonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-          .addComponent(jLabel5)
+          .addComponent(labelID)
           .addComponent(tfID, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
         .addGroup(dlgPokemonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -270,11 +287,13 @@ public class FramePokemon extends javax.swing.JInternalFrame {
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
         .addGroup(dlgPokemonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
           .addComponent(jLabel8)
-          .addComponent(tfTinggi, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+          .addComponent(tfTinggi, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+          .addComponent(jLabel4))
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
         .addGroup(dlgPokemonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
           .addComponent(jLabel9)
-          .addComponent(tfBerat, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+          .addComponent(tfBerat, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+          .addComponent(jLabel14))
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
         .addGroup(dlgPokemonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
           .addComponent(jLabel10)
@@ -430,7 +449,9 @@ public class FramePokemon extends javax.swing.JInternalFrame {
   }// </editor-fold>//GEN-END:initComponents
 
   private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
-    showDialog("Tambah Pokémon", false);
+    clearField();
+    isOnEdit = false;
+    showDialog("Tambah Pokémon", isOnEdit);
   }//GEN-LAST:event_btnTambahActionPerformed
 
   private void cbTipeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbTipeItemStateChanged
@@ -451,8 +472,8 @@ public class FramePokemon extends javax.swing.JInternalFrame {
       tfID.setText(tbPokemon.getValueAt(baris, 0).toString());
       tfPokedexID.setText(tbPokemon.getValueAt(baris, 1).toString());
       tfNama.setText(tbPokemon.getValueAt(baris, 2).toString());
-      tfTinggi.setText(tbPokemon.getValueAt(baris, 4).toString());
-      tfBerat.setText(tbPokemon.getValueAt(baris, 5).toString());
+      tfTinggi.setText(tbPokemon.getValueAt(baris, 4).toString().replaceAll("[a-z]", "").trim());
+      tfBerat.setText(tbPokemon.getValueAt(baris, 5).toString().replaceAll("[a-z]", "").trim());
 
       String[] tipe = tbPokemon.getValueAt(baris, 3).toString().split(", ");
       cbTipe1.getModel().setSelectedItem(tipe[0]);
@@ -534,15 +555,17 @@ public class FramePokemon extends javax.swing.JInternalFrame {
   private javax.swing.JLabel jLabel11;
   private javax.swing.JLabel jLabel12;
   private javax.swing.JLabel jLabel13;
+  private javax.swing.JLabel jLabel14;
   private javax.swing.JLabel jLabel2;
   private javax.swing.JLabel jLabel3;
-  private javax.swing.JLabel jLabel5;
+  private javax.swing.JLabel jLabel4;
   private javax.swing.JLabel jLabel6;
   private javax.swing.JLabel jLabel7;
   private javax.swing.JLabel jLabel8;
   private javax.swing.JLabel jLabel9;
   private javax.swing.JPanel jPanel1;
   private javax.swing.JPanel jPanel2;
+  private javax.swing.JLabel labelID;
   private javax.swing.JLabel labelJudulDialog;
   private javax.swing.JLabel lblKemampuanPokemonId;
   private javax.swing.JLabel lblTipePokemonId;
@@ -589,6 +612,7 @@ public class FramePokemon extends javax.swing.JInternalFrame {
       int id = Integer.parseInt(getData.get(0).get("id").toString()) + 1;
       nextID = id;
       tfID.setText(String.valueOf(id));
+      System.out.println("Next ID: " + nextID);
     } catch (SQLException e) {
       System.err.println("Error in getID: " + e.getMessage());
     }
@@ -616,10 +640,10 @@ public class FramePokemon extends javax.swing.JInternalFrame {
     } catch (SQLException e) {
       System.err.println("Error in getID: " + e.getMessage());
     }
-
   }
 
   private void clearField() {
+//    tfID.setText("");
     tfPokedexID.setText("");
     tfNama.setText("");
     tfTinggi.setText("");
@@ -645,6 +669,16 @@ public class FramePokemon extends javax.swing.JInternalFrame {
     int tipe2 = cbTipe2.getItemAt(cbTipe2.getSelectedIndex()).getId();
     int kemampuan1 = cbKemampuan1.getItemAt(cbKemampuan1.getSelectedIndex()).getId();
     int kemampuan2 = cbKemampuan2.getItemAt(cbKemampuan2.getSelectedIndex()).getId();
+
+    System.out.println("ID: " + id);
+//    System.out.println("Pokedex ID: " + pokedexID);
+//    System.out.println("Nama: " + nama);
+//    System.out.println("Tinggi: " + tinggi);
+//    System.out.println("Berat: " + berat);
+//    System.out.println("Tipe 1: " + tipe1);
+//    System.out.println("Tipe 2: " + tipe2);
+//    System.out.println("Kemampuan 1: " + kemampuan1);
+//    System.out.println("Kemampuan 2: " + kemampuan2);
 
     if (pokedexID.isBlank()) {
       JOptionPane.showMessageDialog(rootPane, "Pokedex ID belum terisi!");
@@ -677,6 +711,7 @@ public class FramePokemon extends javax.swing.JInternalFrame {
       if (pc.insert(p) == 1) {
         JOptionPane.showMessageDialog(null, "Data berhasil disimpan");
         getID();
+        clearField();
         tfPokedexID.requestFocus();
         pc.readDataTable("", "", tpc);
       } else {
@@ -717,9 +752,13 @@ public class FramePokemon extends javax.swing.JInternalFrame {
       JOptionPane.showMessageDialog(rootPane, "Kemampuan Pokemon ke-1 belum dipilih!");
     } else {
       tipeId.add(tipe1);
-      tipeId.add(tipe2);
+      if (tipe2 != 0) {
+        tipeId.add(tipe2);
+      }
       kemampuanId.add(kemampuan1);
-      kemampuanId.add(kemampuan2);
+      if (kemampuan2 != 0) {
+        kemampuanId.add(kemampuan2);
+      }
       tipePokemon.add(Integer.valueOf(tipePokemonID[0]));
       if (tipePokemonID.length == 2) {
         tipePokemon.add(Integer.valueOf(tipePokemonID[1]));
@@ -741,12 +780,15 @@ public class FramePokemon extends javax.swing.JInternalFrame {
           kemampuanPokemon
       );
 
+      System.out.println(p.toString());
       if (pc.update(p) == 1) {
         JOptionPane.showMessageDialog(null, "Data berhasil diubah");
         disposeDialog();
         tfID.setText(String.valueOf(nextID));
         pc.readDataTable("", "", tpc);
         isOnEdit = false;
+
+        clearField();
       } else {
         JOptionPane.showMessageDialog(null, "Data gagal diubah");
       }

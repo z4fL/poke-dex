@@ -15,19 +15,20 @@ public class TablePokemonController extends AbstractTableModel {
 
   public void addRow(Pokemon pokemon) {
     listPokemon.add(pokemon);
-    fireTableRowsInserted(getRowCount(), getColumnCount());
+//    System.out.println("Row: " + getRowCount() + " | " + "Col: " + getColumnCount());
+    fireTableRowsInserted(getRowCount(), getRowCount());
   }
 
   public void removeRow(int firstRow, int lastRow) {
     listPokemon.remove(firstRow);
     fireTableRowsDeleted(firstRow, lastRow);
   }
-  
-  public void removeAll(){
+
+  public void removeAll() {
     int size = listPokemon.size();
     listPokemon.clear();
     fireTableRowsDeleted(0, size);
-}
+  }
 
   @Override
   public int getRowCount() {
@@ -77,9 +78,9 @@ public class TablePokemonController extends AbstractTableModel {
       case 3:
         return strArr2String(listPokemon.get(rowIndex).getTipeNama());
       case 4:
-        return listPokemon.get(rowIndex).getTinggi();
+        return listPokemon.get(rowIndex).getTinggi() + " m";
       case 5:
-        return listPokemon.get(rowIndex).getBerat();
+        return listPokemon.get(rowIndex).getBerat() + " kg";
       case 6:
         return strArr2String(listPokemon.get(rowIndex).getKemampuanNama());
       case 7:
